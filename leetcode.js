@@ -11,12 +11,16 @@ require('dotenv').config();
   const userIdLeetcode = process.env.userIdLeetcode;
   const password = process.env.password;
 
-  await page.goto('https://leetcode.com/submissions/detail/577526407/');
+  await page.goto('https://leetcode.com/submissions/detail/577526407/', {
+    waitUntil: 'load',
+    // Remove the timeout
+    timeout: 0
+  });
   await page.type('#id_login', userIdLeetcode);
   await page.type('#id_password', password);
   await page.click('#signin_btn')
 
   await page.screenshot({ path: 'sc.png', fullPage: true });
 
-  await browser.close();
+  //await browser.close();
 })();
