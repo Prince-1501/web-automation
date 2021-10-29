@@ -21,7 +21,7 @@ require('dotenv').config();
 
   // Enter Authentication OTP
   await page.waitForSelector('#totp')
-  await page.type('#totp', '524495')
+  await page.type('#totp', '388174')
 
   await page.waitForSelector('.row > .login-form > .twofa-form > .actions > .button-orange')
   await page.click('.row > .login-form > .twofa-form > .actions > .button-orange')
@@ -39,7 +39,6 @@ require('dotenv').config();
   /* Future Uses
   await page.waitForSelector('.omnisearch-results > div > .search-result-item > .action-buttons > .button-blue')
   await page.click('.omnisearch-results > div > .search-result-item > .action-buttons > .button-blue')
-  
   */
 
 
@@ -54,10 +53,21 @@ require('dotenv').config();
   await page.waitForSelector('.fields > .row > .quantity > .no > input')
   await page.type('.fields > .row > .quantity > .no > input', '639')
 
-  // 3. Price
-  await page.waitForSelector('.fields > .row > .price > .no > input')
-  await page.click({ clickCount: 3 })
+  // 3. Price - First set it to Blank
+  const input = await page.waitForSelector('.fields > .row > .price > .no > input')
+  await input.click({ clickCount: 3 })
+  await page.keyboard.press('Backspace')
   await page.type('.fields > .row > .price > .no > input', '400')
+
+
+
+  // For Limit Order
+  await page.waitForSelector('.row > .price > .su-radio-group > .su-radio-wrap:nth-child(2) > .su-radio-label')
+  await page.click('.row > .price > .su-radio-group > .su-radio-wrap:nth-child(2) > .su-radio-label')
+
+  // 4. Buy button
+  await page.waitForSelector('.footer > .row > .six > .submit > span')
+  await page.click('.footer > .row > .six > .submit > span')
 
   //await page.screenshot({ path: 'sc.png', fullPage: true });
   //await browser.close();
