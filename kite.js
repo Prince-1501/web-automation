@@ -4,9 +4,11 @@ require('dotenv').config();
 const userId = process.env.userId;
 const password = process.env.password;
 
+
 let input_price, input_trigger;
 
-(async () => {
+module.exports = { ZerodhaFun : (async (totp) => {
+  
   const browser = await puppeteer.launch({ 
     headless: false , 
     defaultViewport: null,
@@ -33,7 +35,7 @@ let input_price, input_trigger;
 
   // Enter Authentication OTP
   await page.waitForSelector('#totp')
-  await page.type('#totp', '570385')
+  await page.type('#totp', totp)
 
   await page.waitForSelector('.row > .login-form > .twofa-form > .actions > .button-orange')
   await page.click('.row > .login-form > .twofa-form > .actions > .button-orange')
@@ -46,7 +48,7 @@ let input_price, input_trigger;
 
   // search the Ticker Name
   await page.waitForSelector('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input')
-  await page.type('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input', 'fsl');
+  await page.type('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input', ticker);
 
 
   // click on Buy Option
@@ -76,7 +78,7 @@ let input_price, input_trigger;
 
   // 2. Quantity
   await page.waitForSelector('.fields > .row > .quantity > .no > input')
-  await page.type('.fields > .row > .quantity > .no > input', '639')
+  await page.type('.fields > .row > .quantity > .no > input', quantity)
 
 
   // 3. Price - First set it to Blank then set the Price
@@ -115,7 +117,7 @@ let input_price, input_trigger;
   
   // search the Ticker Name
   await page.waitForSelector('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input')
-  await page.type('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input', 'fsl');
+  await page.type('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input', ticker);
 
 
   // click on Buy Option
@@ -145,7 +147,7 @@ let input_price, input_trigger;
 
   // 2. Quantity
   await page.waitForSelector('.fields > .row > .quantity > .no > input')
-  await page.type('.fields > .row > .quantity > .no > input', '639')
+  await page.type('.fields > .row > .quantity > .no > input', quantity)
 
 
   // 3. Price - First set it to Blank then set the Price
@@ -183,7 +185,7 @@ let input_price, input_trigger;
   
   // search the Ticker Name
   await page.waitForSelector('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input')
-  await page.type('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input', 'fsl');
+  await page.type('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input', ticker);
 
 
   // click on Buy Option
@@ -201,8 +203,8 @@ let input_price, input_trigger;
 
 
   // Switch to SELL Order
-  await page.waitForSelector('.wrap-right > div > span > .su-switch-group > .su-switch-control')
-  await page.click('.wrap-right > div > span > .su-switch-group > .su-switch-control')
+  // await page.waitForSelector('.wrap-right > div > span > .su-switch-group > .su-switch-control')
+  // await page.click('.wrap-right > div > span > .su-switch-group > .su-switch-control')
 
 
   // 1. Intraday
@@ -213,7 +215,7 @@ let input_price, input_trigger;
 
   // 2. Quantity
   await page.waitForSelector('.fields > .row > .quantity > .no > input')
-  await page.type('.fields > .row > .quantity > .no > input', '639')
+  await page.type('.fields > .row > .quantity > .no > input', quantity)
 
 
   // 3. Price - First set it to Blank then set the Price
@@ -244,6 +246,11 @@ let input_price, input_trigger;
   await page.click('.footer > .row > .six > .submit > span')
 
   //await page.screenshot({ path: 'sc.png', fullPage: true });
-  //await browser.close();
+  await browser.close();
+  
+  res.send(`Order Placed Successfully on ${ticker}`);
 
-})();
+  
+})()
+
+};
