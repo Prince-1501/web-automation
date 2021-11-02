@@ -282,7 +282,25 @@ app.post('/order', (req,res)=>{
     //await page.screenshot({ path: 'sc.png', fullPage: true });
     await browser.close();
     
-    res.send(`Order Placed Successfully on ${ticker}`);
+
+    const responseObject = {
+      Message: `Order Placed Successfully on ${ticker}`,
+      Status: 200,
+      Data: {
+        totp : totp,
+        Risk_amount : risk,
+        Ticker: ticker,
+        Quantity: quantity,
+        Buy_price: buy_price,
+        BuyTrigger: buy_trigger,
+        stop_loss_trigger: stop_loss_trigger,
+        Target1: target1,
+        Target2: target2,
+        Target3: target3
+      }
+    };
+
+    res.send( responseObject);
 
   })();
 
