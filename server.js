@@ -3,36 +3,11 @@ const bodyParser = require('body-parser');
 const puppeteer = require('puppeteer');
 
 require('dotenv').config();
+const zerodhaFunctions = require('./resources/zerodhaLogic');
 
 const userId = process.env.userId;
 const password = process.env.password;
 
-
-function calculateQuantity (risk, buy_trigger, stop_loss_trigger) {
-
-  let diff = buy_trigger - stop_loss_trigger;
-  let quantity = risk / diff;
-  quantity = Math.floor(quantity);
-  return quantity;
-
-}
-
-function calculateBuyPrice ( buy_trigger ) {
-  
-  let buyPrice = buy_trigger + 0.2;
-  buyPrice = buyPrice.toFixed(2);
-  return buyPrice;
-  
-}
-
-function calculateTarget1 ( buy_trigger, stop_loss_trigger ) {
-  
-  let diff = buy_trigger - stop_loss_trigger ;
-  let target1 = buy_trigger + diff ;
-  target1 = target1.toFixed(2);
-  return target1;
-  
-}
 
 let input_price, input_trigger, input_quantity;
 var port = process.env.PORT || 5010;
@@ -65,17 +40,21 @@ app.post('/order', (req,res)=>{
 
 
   // calculate
-  let quantity = calculateQuantity(risk, buy_trigger, stop_loss_trigger );
-  let buy_price = calculateBuyPrice(buy_trigger);
-  let target1 = calculateTarget1( buy_trigger, stop_loss_trigger );
+  let quantity = zerodhaFunctions.calculateQuantity(risk, buy_trigger, stop_loss_trigger );
+  let buy_price = zerodhaFunctions.calculateBuyPrice(buy_trigger);
+  let target1 = zerodhaFunctions.calculateTarget1( buy_trigger, stop_loss_trigger );
+  let target2 = zerodhaFunctions.calculateTarget2( buy_trigger, stop_loss_trigger );
+  let target3 = zerodhaFunctions.calculateTarget3( buy_trigger, stop_loss_trigger );
 
 
   // convert integer to string
   buy_trigger = buy_trigger.toString();
   stop_loss_trigger = stop_loss_trigger.toString();
-  target1 = target1.toString();
   buy_price = buy_price.toString();
   quantity = quantity.toString();
+  target1 = target1.toString();
+  target2 = target2.toString();
+  target3 = target3.toString();
 
 
   // console.console.log();
@@ -88,6 +67,8 @@ app.post('/order', (req,res)=>{
   console.log(`quantity : ${quantity}`);
   console.log(`buy_price : ${buy_price}`);
   console.log(`target1 : ${target1}`);
+  console.log(`target2 : ${target2}`);
+  console.log(`target3 : ${target3}`);
 
 
 
