@@ -10,7 +10,7 @@ given -> trigger price
     // trigger price is deadline ->  give breakout for buy and sell so try to take traxaction iside it 
 
 sell -> trigger price
- price -> trigger - 0.2
+price -> trigger - 0.2
 
 
 ----------------------------------------------------------------
