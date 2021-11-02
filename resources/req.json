@@ -1,0 +1,7 @@
+{
+    "risk": 400,
+    "ticker" : "exideind",
+    "buy_trigger": 177.85,
+    "stop_loss_trigger": 176.60,
+    "totp": "127705"
+}

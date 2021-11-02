@@ -1,0 +1,9 @@
+curl --location --request POST 'http://localhost:5010/order' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "risk": 400,
+    "ticker" : "sobha",
+    "buy_trigger": 820.05,
+    "stop_loss_trigger": 819.35,
+    "totp": "143778"
+}'
