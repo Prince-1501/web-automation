@@ -73,7 +73,7 @@ app.post('/order', (req,res)=>{
   let target1 = calculateTarget1( buy_trigger, stop_loss_trigger );
 
 
-  // console.log(to string);
+  // convert integer to string
   buy_trigger = buy_trigger.toString();
   stop_loss_trigger = stop_loss_trigger.toString();
   target1 = target1.toString();
@@ -130,6 +130,8 @@ app.post('/order', (req,res)=>{
     await page.click('.row > .login-form > .twofa-form > .actions > .button-orange');
   
   
+
+
   
   
    // CASE : <--------------------------- BUY STOCK -------------------- >
@@ -153,11 +155,6 @@ app.post('/order', (req,res)=>{
   
   
     // dialog box opens Now choose the options Below
-  
-  
-    // Switch to SELL Order
-    // await page.waitForSelector('.wrap-right > div > span > .su-switch-group > .su-switch-control');
-    // await page.click('.wrap-right > div > span > .su-switch-group > .su-switch-control');
   
   
     // 1. Intraday
@@ -197,10 +194,14 @@ app.post('/order', (req,res)=>{
   
 
 
+
+
+
     
     // CASE : <--------------------------- SELL STOCK  100 % sold Part 1 -------------------- >
   
     
+
 
     // search the Ticker Name
     await page.waitForSelector('.marketwatch-sidebar > .omnisearch > .search > .su-input-group > input');
@@ -249,6 +250,9 @@ app.post('/order', (req,res)=>{
     
   
   
+
+
+
     // CASE : <--------------------------- TARGET STOCK  100 % sell Part 1 -------------------- >
   
 
@@ -307,7 +311,7 @@ app.post('/order', (req,res)=>{
 });
 
 
+
 app.listen(port,()=>{
   console.log(`server is up on port ${port}`);
-
 });
