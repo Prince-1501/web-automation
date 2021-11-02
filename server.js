@@ -4,9 +4,6 @@ const puppeteer = require('puppeteer');
 
 require('dotenv').config();
 
-// const calculateQuantity = require('./resources/logic');
-// const calculateTarget1 = require('./resources/logic');
-
 const userId = process.env.userId;
 const password = process.env.password;
 
